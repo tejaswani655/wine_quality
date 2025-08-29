@@ -25,11 +25,23 @@ print(accuracy_score(X_test_prediction, Y_test))
 
 # web app
 st.title("Wine Quality Prediction Model")
-input_text = st.text_input('Enter all Wine Features')
-input_text_list = input_text.split(',')
-features = np.asarray(input_text_list)
-prediction = model.predict(features.reshape(1,-1))
-if prediction[0] == 1:
-    st.write("Good Quality Wine")
-else:
-    st.write("Bad Quality Wine")
+
+# Input wine features separated by commas
+input_text = st.text_input("Enter all Wine Features (comma separated)")
+
+if st.button("Predict"):
+    try:
+        # Convert input string to list of floats
+        input_text_list = [float(x) for x in input_text.split(',')]
+        features = np.asarray(input_text_list).reshape(1, -1)
+
+        # Make prediction
+        prediction = model.predict(features)
+
+        if prediction[0] == 1:
+            st.success("🍷 Good Quality Wine")
+        else:
+            st.error("🍷 Bad Quality Wine")
+
+    except ValueError:
+        st.error("⚠️ Please enter valid numeric values separated by commas.")
