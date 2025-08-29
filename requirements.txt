@@ -2,6 +2,7 @@ streamlit
 pandas
 scikit-learn
 matplotlib
+seaborn
 numpy
 markdown-it-py==3.0.0
 pygments==2.17.2
